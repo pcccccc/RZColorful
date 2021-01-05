@@ -97,6 +97,59 @@
     }
     return html;
 }
+
+- (NSString *)rz_codingToHtmlHasImgUrl:(NSArray <NSString *> *)urls {
+    
+    NSMutableAttributedString *tempAttr = self.mutableCopy;
+        // 先将图片占位，等替换完成html标签之后，在将图片url替换回准确的
+    __block NSInteger idx = 0;
+    NSMutableArray *tempPlaceHolders = [NSMutableArray new];
+    [tempAttr enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, tempAttr.length) options:NSAttributedStringEnumerationReverse usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:[NSTextAttachment class]]) {
+            NSString *placeHolder = [NSString stringWithFormat:@"rz_attributed_image_placeHolder_index_%lu", (unsigned long)idx];
+            idx++;
+            [tempAttr replaceCharactersInRange:range withString:placeHolder];
+            [tempPlaceHolders addObject:placeHolder];
+        }
+    }];
+    NSString *html = [tempAttr rz_codingToCompleteHtml];
+    NSInteger index = 0;
+    for (NSInteger i = tempPlaceHolders.count - 1; i >= 0; i--) {
+        NSString *placeholder = tempPlaceHolders[i];
+        NSString *url = index < urls.count? urls[index]:@"";
+        NSString *img = [NSString stringWithFormat:@"<img style=\"max-width:98%%;height:auto;\" src=\"%@\" alt=\"图片缺失\">", url];
+        index++;
+        html = [html stringByReplacingOccurrencesOfString:placeholder withString:img];
+    }
+    return html;
+}
+/// 将富文本转换为web可用的html
+- (NSString *)rz_codingToHtmlWebasImgUrl:(NSArray <NSString *> *)urls {
+    
+    NSMutableAttributedString *tempAttr = self.mutableCopy;
+        // 先将图片占位，等替换完成html标签之后，在将图片url替换回准确的
+    __block NSInteger idx = 0;
+    NSMutableArray *tempPlaceHolders = [NSMutableArray new];
+    [tempAttr enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, tempAttr.length) options:NSAttributedStringEnumerationReverse usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:[NSTextAttachment class]]) {
+            NSString *placeHolder = [NSString stringWithFormat:@"rz_attributed_image_placeHolder_index_%lu", (unsigned long)idx];
+            idx++;
+            [tempAttr replaceCharactersInRange:range withString:placeHolder];
+            [tempPlaceHolders addObject:placeHolder];
+        }
+    }];
+    NSString *html = [tempAttr rz_codingToCompleteHtmlByWeb];
+    NSInteger index = 0;
+    for (NSInteger i = tempPlaceHolders.count - 1; i >= 0; i--) {
+        NSString *placeholder = tempPlaceHolders[i];
+        NSString *url = index < urls.count? urls[index]:@"";
+        NSString *img = [NSString stringWithFormat:@"<img style=\"max-width:98%%;height:auto;\" src=\"%@\" alt=\"图片缺失\">", url];
+        index++;
+        html = [html stringByReplacingOccurrencesOfString:placeholder withString:img];
+    }
+    return html;
+}
+
 - (NSString *)rz_codingToCompleteHtml {
     NSDictionary *exportParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
     NSData *htmlData = [self dataFromRange:NSMakeRange(0, self.length) documentAttributes:exportParams error:nil];
