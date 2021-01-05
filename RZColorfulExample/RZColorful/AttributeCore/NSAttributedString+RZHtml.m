@@ -98,7 +98,7 @@
     return html;
 }
 
-- (NSString *)rz_codingHtmlHasImgUrl:(NSArray <NSString *> *)urls {
+- (NSString *)rzCodingHtmlHasImgUrl:(NSArray <NSString *> *)urls {
     
     NSMutableAttributedString *tempAttr = self.mutableCopy;
         // 先将图片占位，等替换完成html标签之后，在将图片url替换回准确的
@@ -124,7 +124,7 @@
     return html;
 }
 /// 将富文本转换为web可用的html
-- (NSString *)rz_codingHtmlWebHasImgUrl:(NSArray <NSString *> *)urls {
+- (NSString *)rzCodingHtmlWebHasImgUrl:(NSArray <NSString *> *)urls {
     
     NSMutableAttributedString *tempAttr = self.mutableCopy;
         // 先将图片占位，等替换完成html标签之后，在将图片url替换回准确的
@@ -150,7 +150,7 @@
     return html;
 }
 
-- (NSString *)rzCodingHtmlHasImgUrl {
+- (NSString *)rz_codingToCompleteHtml {
     NSDictionary *exportParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
     NSData *htmlData = [self dataFromRange:NSMakeRange(0, self.length) documentAttributes:exportParams error:nil];
     NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
@@ -159,7 +159,7 @@
     return htmlString;
 }
 
-- (NSString *)rzCodingHtmlWebHasImgUrl {
+- (NSString *)rz_codingToCompleteHtmlByWeb {
     NSMutableAttributedString *tempAttr = self.mutableCopy;
     NSArray <RZHtmlTransform *> *labels = RZHTMLWebLabels;
     
