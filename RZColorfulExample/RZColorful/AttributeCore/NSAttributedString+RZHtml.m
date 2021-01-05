@@ -150,7 +150,7 @@
     return html;
 }
 
-- (NSString *)rz_codingToCompleteHtml {
+- (NSString *)rzCodingHtmlHasImgUrl {
     NSDictionary *exportParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
     NSData *htmlData = [self dataFromRange:NSMakeRange(0, self.length) documentAttributes:exportParams error:nil];
     NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
@@ -159,7 +159,7 @@
     return htmlString;
 }
 
-- (NSString *)rz_codingToCompleteHtmlByWeb {
+- (NSString *)rzCodingHtmlWebHasImgUrl {
     NSMutableAttributedString *tempAttr = self.mutableCopy;
     NSArray <RZHtmlTransform *> *labels = RZHTMLWebLabels;
     
