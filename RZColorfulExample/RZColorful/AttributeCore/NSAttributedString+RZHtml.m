@@ -98,7 +98,7 @@
     return html;
 }
 
-- (NSString *)rz_codingToHtmlHasImgUrl:(NSArray <NSString *> *)urls {
+- (NSString *)rz_codingHtmlHasImgUrl:(NSArray <NSString *> *)urls {
     
     NSMutableAttributedString *tempAttr = self.mutableCopy;
         // 先将图片占位，等替换完成html标签之后，在将图片url替换回准确的
@@ -124,7 +124,7 @@
     return html;
 }
 /// 将富文本转换为web可用的html
-- (NSString *)rz_codingToHtmlWebasImgUrl:(NSArray <NSString *> *)urls {
+- (NSString *)rz_codingHtmlWebHasImgUrl:(NSArray <NSString *> *)urls {
     
     NSMutableAttributedString *tempAttr = self.mutableCopy;
         // 先将图片占位，等替换完成html标签之后，在将图片url替换回准确的

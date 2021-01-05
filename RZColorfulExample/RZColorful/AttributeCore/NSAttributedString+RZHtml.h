@@ -42,9 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将富文本转换为web可用的html
 - (NSString *)rz_codingToHtmlByWebWithImagesURLSIfHad:(NSArray <NSString *> *)urls;
 
-- (NSString *)rz_codingToHtmlHasImgUrl:(NSArray <NSString *> *)urls;
+- (NSString *)rz_codingHtmlHasImgUrl:(NSArray <NSString *> *)urls;
 /// 将富文本转换为web可用的html
-- (NSString *)rz_codingToHtmlWebasImgUrl:(NSArray <NSString *> *)urls;
+- (NSString *)rz_codingHtmlWebHasImgUrl:(NSArray <NSString *> *)urls;
 
 @end
 
